@@ -12,12 +12,12 @@ TEXTRESET=$(tput sgr0)
 TEXTGREEN=$(tput setaf 2)
 TEXTRED=$(tput setaf 1)
 
-if [[ -z $NDK_PATH ]]; then
-    echored "Please specify the Android NDK environment variable \"NDK_PATH\"."
+if [[ -z $ANDROID_NDK_HOME ]]; then
+    echored "Please specify the Android NDK environment variable \"ANDROID_NDK_HOME\"."
     exit 1
 fi
 
-TOOLCHAIN=$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64
+TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
 STRIP=$TOOLCHAIN/bin/llvm-strip
 CLEAN=termux-elf-cleaner
 BUILDDIR="$(pwd)/build"
@@ -37,7 +37,7 @@ echogreen "Compiling for arch: $ARCH, api: $API"
 
 echogreen "Configuring"
 cmake -GNinja -B $BUILDDIR \
-    -DCMAKE_TOOLCHAIN_FILE=$NDK_PATH/build/cmake/android.toolchain.cmake \
+    -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
     -DANDROID_ABI=$ABI \
     -DANDROID_NATIVE_API_LEVEL=$API \
     -DANDROID_PLATFORM="android-$API" \

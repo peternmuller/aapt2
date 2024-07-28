@@ -79,7 +79,7 @@ jobs:
       - name: Build aapt2 and zipalign
         run: ./build.sh ${{ matrix.target_arch }}
         env:
-          NDK_PATH: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
           TOOLS_PATH: ${{ github.workspace }}/tools
 
       - name: Test
