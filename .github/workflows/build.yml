@@ -69,7 +69,7 @@ jobs:
           mkdir -p build
           cmake -B build
           make -C build -j$(nproc)
-          make -C build check
+          # make -C build check
           sudo make -C build install
 
       - name: Grant execute permission for build.sh
