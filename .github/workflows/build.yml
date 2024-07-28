@@ -70,7 +70,8 @@ jobs:
           cmake -B build
           make -C build -j$(nproc)
           # make -C build check
-          sudo make -C build install
+          # sudo make -C build install
+          sudo install build/termux-elf-cleaner /usr/local/bin
 
       - name: Grant execute permission for build.sh
         run: chmod +x build.sh
