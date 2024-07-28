@@ -31,12 +31,12 @@ jobs:
           fetch-depth: 1
           submodules: true
         
-      - name: Setup ndk r26b
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r26b
-          add-to-path: false
+      # - name: Setup ndk r26b
+      #   uses: nttld/setup-ndk@v1
+      #   id: setup-ndk
+      #   with:
+      #     ndk-version: r26b
+      #     add-to-path: false
           
       - name: Prerequisites
         run: |
@@ -80,6 +80,9 @@ jobs:
         env:
           NDK_PATH: ${{ steps.setup-ndk.outputs.ndk-path }}
           TOOLS_PATH: ${{ github.workspace }}/tools
+
+      - name: Test
+        run: file build/bin/*
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
