@@ -20,22 +20,20 @@ jobs:
         target_arch:
           - arm
           - aarch64
-          - i686
-          - x86_64
       fail-fast: false
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: true
         
-      - name: Setup ndk r26b
+      - name: Setup ndk r27b
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r26b
+          ndk-version: r27b
           add-to-path: false
           
       - name: Prerequisites
@@ -82,7 +80,7 @@ jobs:
           TOOLS_PATH: ${{ github.workspace }}/tools
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: aapt2-${{ matrix.target_arch }}
           path: build/bin
