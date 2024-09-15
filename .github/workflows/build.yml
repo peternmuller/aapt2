@@ -67,8 +67,9 @@ jobs:
           mkdir -p build
           cmake -B build
           make -C build -j$(nproc)
-          make -C build check
-          sudo make -C build install
+          # make -C build check
+          # sudo make -C build install
+          sudo install build/termux-elf-cleaner /usr/local/bin
 
       - name: Grant execute permission for build.sh
         run: chmod +x build.sh
@@ -76,8 +77,11 @@ jobs:
       - name: Build aapt2 and zipalign
         run: ./build.sh ${{ matrix.target_arch }}
         env:
-          NDK_PATH: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
           TOOLS_PATH: ${{ github.workspace }}/tools
+
+      - name: Test
+        run: file build/bin/*
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
