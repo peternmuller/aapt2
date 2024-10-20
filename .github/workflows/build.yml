@@ -29,11 +29,11 @@ jobs:
           fetch-depth: 1
           submodules: true
         
-      - name: Setup ndk r27b
+      - name: Setup ndk r27c
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r27b
+          ndk-version: r27c
           add-to-path: false
           
       - name: Prerequisites
