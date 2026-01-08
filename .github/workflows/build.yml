@@ -14,7 +14,7 @@ on:
 jobs:
   android:
     name: Build for Android
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         target_arch:
@@ -24,18 +24,18 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
           submodules: true
         
-      - name: Setup ndk r28c
+      - name: Setup ndk r29
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r28c
+          ndk-version: r29
           add-to-path: false
-          
+
       - name: Prerequisites
         run: |
           sudo apt-get install \
@@ -59,7 +59,7 @@ jobs:
           make -j$(nproc)
           cp $(find . -name protoc-*) $tools_path || exit 1
           echo "PROTOC VERSION: $($(find $tools_path -name protoc-*) --version)"
-          
+
       - name: Setup elf-cleaner
         run: |
           git clone --depth 1 https://github.com/termux/termux-elf-cleaner.git src/third_party/elf-cleaner
@@ -84,7 +84,7 @@ jobs:
         run: file build/bin/*
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: aapt2-${{ matrix.target_arch }}
           path: build/bin
